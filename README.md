@@ -40,7 +40,6 @@ Minimal desktop applet prototype that displays a logo image in a small window (c
 
    flatpak run com.example.DesktopLogoApplet   flatpak run com.example.DesktopLogoApplet
 
-   ```   ```
 
 
 
