@@ -1,5 +1,5 @@
 {
-  "app-id": "com.example.CosmicLogoApplet",
+  "app-id": "com.example.DesktopLogoApplet",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "23.08",
   "sdk": "org.freedesktop.Sdk",

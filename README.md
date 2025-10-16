@@ -1,47 +1,90 @@
-# Desktop Logo Applet
+# Desktop Logo Applet# Desktop Logo Applet
 
-Minimal COSMIC prototype that displays a logo image in a small window (corner positioned). It does not alter the wallpaper; future versions may integrate deeper with COSMIC.
 
-## Installation
 
-### Option 1: Download Pre-built Flatpak (Recommended)
+Minimal desktop applet prototype that displays a logo image in a small window (corner positioned)..
 
-1. **Download from GitHub Actions:**
-   - Go to the [Actions tab](https://github.com/VictoryTek/Desktop-Logo/actions) of this repository
-   - Find the latest successful workflow run
-   - Download the `desktop-logo-applet-flatpak` artifact
-   - Extract the `desktop-logo-applet.flatpak` file
 
-2. **Install the Flatpak:**
-   ```bash
-   # Install the downloaded bundle
-   flatpak install --user desktop-logo-applet.flatpak
-   
-   # Run the applet
-   flatpak run com.example.CosmicLogoApplet
-   ```
 
-### Option 2: Build Locally (Plain Cargo)
+## Installation## Installation
 
-```bash
-git clone https://github.com/VictoryTek/Desktop-Logo.git
-cd Desktop-Logo
-cargo run -p desktop_logo_applet
-```
 
-### Run Installed Flatpak
-```bash
-flatpak run com.example.CosmicLogoApplet
-```
 
-## Configuration
-Edit `desktop-logo.toml` (in the project root when using cargo run):
-```
-logo_path = "assets/logo.png"
+### Option 1: Download Pre-built Flatpak (Recommended)### Option 1: Download Pre-built Flatpak (Recommended)
+
+
+
+1. **Download from GitHub Actions:**1. **Download from GitHub Actions:**
+
+   - Go to the [Actions tab](https://github.com/VictoryTek/Desktop-Logo/actions) of this repository   - Go to the [Actions tab](https://github.com/VictoryTek/Desktop-Logo/actions) of this repository
+
+   - Find the latest successful workflow run   - Find the latest successful workflow run
+
+   - Download the `desktop-logo-applet-flatpak` artifact   - Download the `desktop-logo-applet-flatpak` artifact
+
+   - Extract the `desktop-logo-applet.flatpak` file   - Extract the `desktop-logo-applet.flatpak` file
+
+
+
+2. **Install the Flatpak:**2. **Install the Flatpak:**
+
+   ```bash   ```bash
+
+   # Install the downloaded bundle   # Install the downloaded bundle
+
+   flatpak install --user desktop-logo-applet.flatpak   flatpak install --user desktop-logo-applet.flatpak
+
+      
+
+   # Run the applet   # Run the applet
+
+   flatpak run com.example.DesktopLogoApplet   flatpak run com.example.DesktopLogoApplet
+
+   ```   ```
+
+
+
+### Option 2: Build Locally (Plain Cargo)### Option 2: Build Locally (Plain Cargo)
+
+
+
+```bash```bash
+
+git clone https://github.com/VictoryTek/Desktop-Logo.gitgit clone https://github.com/VictoryTek/Desktop-Logo.git
+
+cd Desktop-Logocd Desktop-Logo
+
+cargo run -p desktop_logo_appletcargo run -p desktop_logo_applet
+
+``````
+
+
+
+## Configuration### Run Installed Flatpak
+
+Edit `desktop-logo.toml` (in the project root when using cargo run):```bash
+
+```flatpak run com.example.DesktopLogoApplet
+
+logo_path = "assets/logo.png"```
+
 position = "BottomRight"  # TopLeft | TopRight | BottomLeft | BottomRight
+
+margin = 64## Configuration
+
+max_logo_percent = 0.18Edit `desktop-logo.toml` (in the project root when using cargo run):
+
+opacity = 0.85```
+
+```logo_path = "assets/logo.png"
+
+If the file is missing the applet exits with an error. Provide your own image path for `logo_path` (absolute paths work).position = "BottomRight"  # TopLeft | TopRight | BottomLeft | BottomRight
+
 margin = 64
-max_logo_percent = 0.18
-opacity = 0.85
+
+## Licensemax_logo_percent = 0.18
+
+MITopacity = 0.85
 ```
 If the file is missing the applet exits with an error. Provide your own image path for `logo_path` (absolute paths work).
 

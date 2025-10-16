@@ -50,12 +50,12 @@ jobs:
 
       - name: Build Flatpak (desktop logo applet)
         run: |
-          flatpak-builder build-dir flatpak/com.example.CosmicLogoApplet.json --force-clean --user --install
+          flatpak-builder build-dir flatpak/com.example.DesktopLogoApplet.json --force-clean --user --install
 
       - name: Export Flatpak bundle
         run: |
           flatpak build-export repo build-dir
-          flatpak build-bundle repo desktop-logo-applet.flatpak com.example.CosmicLogoApplet
+          flatpak build-bundle repo desktop-logo-applet.flatpak com.example.DesktopLogoApplet
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
