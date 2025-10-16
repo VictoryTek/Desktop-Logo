@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Desktop Logo Applet
+Exec=desktop-logo-applet
+Type=Application
+Categories=Utility;
+NoDisplay=true

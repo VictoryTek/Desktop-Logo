@@ -1,0 +1,7 @@
+# Example configuration for the Cosmic Logo Applet
+# NOTE: Paths are examples; adjust to your system.
+logo_path = "assets/logo.png"
+position = "BottomRight"  # TopLeft, TopRight, BottomLeft, BottomRight
+margin = 64
+max_logo_percent = 0.18
+opacity = 0.85

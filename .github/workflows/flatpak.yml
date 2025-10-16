@@ -1,0 +1,55 @@
+name: Build Flatpak
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  build-flatpak:
+    runs-on: ubuntu-22.04
+    container: ghcr.io/flatpak/flatpak-builder:stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show tool versions
+        run: |
+          flatpak --version
+          flatpak-builder --version
+          rustc --version || true
+          cargo --version || true
+
+      - name: Install Rust toolchain (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo registry
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Generate Cargo.lock (if missing)
+        run: |
+          if [ ! -f Cargo.lock ]; then cargo generate-lockfile; fi
+
+      - name: Build Flatpak (desktop logo applet)
+        run: |
+          flatpak-builder build-dir flatpak/com.example.CosmicLogoApplet.json --force-clean --user --install
+
+      - name: Export Flatpak bundle
+        run: |
+          flatpak build-export repo build-dir
+          flatpak build-bundle repo desktop-logo-applet.flatpak com.example.CosmicLogoApplet
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-logo-applet-flatpak
+          path: desktop-logo-applet.flatpak
+          retention-days: 7

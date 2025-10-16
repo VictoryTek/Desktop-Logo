@@ -1,0 +1,26 @@
+{
+  "app-id": "com.example.CosmicLogoApplet",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "23.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "desktop-logo-applet",
+  "modules": [
+    {
+      "name": "cosmic-logo-applet",
+      "buildsystem": "simple",
+      "build-commands": [
+  "cargo build --release -p desktop_logo_applet",
+  "install -Dm755 target/release/desktop_logo_applet /app/bin/desktop-logo-applet"
+      ],
+      "sources": [
+        { "type": "dir", "path": ".." }
+      ]
+    }
+  ],
+  "finish-args": [
+    "--share=ipc",
+    "--socket=wayland",
+    "--socket=x11",
+    "--filesystem=home:ro"
+  ]
+}

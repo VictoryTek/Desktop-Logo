@@ -1,0 +1,15 @@
+[package]
+name = "desktop_logo_applet"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+anyhow = { workspace = true }
+serde = { workspace = true }
+toml = { workspace = true }
+cosmic = { git = "https://github.com/pop-os/libcosmic", default-features = false, features = ["applet","winit","wayland"] }
+image = { workspace = true }
+
+[features]
+default = []
