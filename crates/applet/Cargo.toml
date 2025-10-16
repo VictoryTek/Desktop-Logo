@@ -8,7 +8,7 @@ license = "MIT"
 anyhow = { workspace = true }
 serde = { workspace = true }
 toml = { workspace = true }
-cosmic = { git = "https://github.com/pop-os/libcosmic", default-features = false, features = ["applet","winit","wayland"] }
+cosmic = { git = "https://github.com/pop-os/libcosmic", default-features = false, features = ["winit","wayland"] }
 image = { workspace = true }
 
 [features]
