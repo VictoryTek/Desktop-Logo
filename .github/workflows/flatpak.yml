@@ -44,6 +44,10 @@ jobs:
         run: |
           if [ ! -f Cargo.lock ]; then cargo generate-lockfile; fi
 
+      - name: Prefetch Cargo git deps
+        run: |
+          cargo fetch --locked || cargo fetch
+
       - name: Build Flatpak (desktop logo applet)
         run: |
           flatpak-builder build-dir flatpak/com.example.CosmicLogoApplet.json --force-clean --user --install

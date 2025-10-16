@@ -5,7 +5,11 @@
   "sdk": "org.freedesktop.Sdk",
   "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
   "build-options": {
-    "append-path": "/usr/lib/sdk/rust-stable/bin"
+    "append-path": "/usr/lib/sdk/rust-stable/bin",
+    "build-args": ["--share=network"],
+    "env": {
+      "CARGO_NET_GIT_FETCH_WITH_CLI": "true"
+    }
   },
   "command": "desktop-logo-applet",
   "modules": [
