@@ -10,7 +10,7 @@
   "command": "desktop-logo-applet",
   "modules": [
     {
-      "name": "cosmic-logo-applet",
+  "name": "desktop-logo-applet",
       "buildsystem": "simple",
       "build-commands": [
   "cargo build --release -p desktop_logo_applet",

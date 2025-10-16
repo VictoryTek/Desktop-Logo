@@ -3,10 +3,10 @@ use std::path::Path;
 use anyhow::Context;
 
 fn main() -> anyhow::Result<()> {
-    // Load config from cosmic-logo.toml in current working directory
-    let cfg_path = Path::new("cosmic-logo.toml");
-    let raw = std::fs::read_to_string(cfg_path).with_context(|| "reading cosmic-logo.toml")?;
-    let parsed: LogoAppletConfigToml = toml::from_str(&raw).with_context(|| "parsing cosmic-logo.toml")?;
+    // Load config from desktop-logo.toml in current working directory
+    let cfg_path = Path::new("desktop-logo.toml");
+    let raw = std::fs::read_to_string(cfg_path).with_context(|| "reading desktop-logo.toml")?;
+    let parsed: LogoAppletConfigToml = toml::from_str(&raw).with_context(|| "parsing desktop-logo.toml")?;
     let position = match parsed.position.to_ascii_lowercase().as_str() {
         "topleft" => Position::TopLeft,
         "topright" => Position::TopRight,

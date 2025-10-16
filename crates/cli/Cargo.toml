@@ -1,5 +1,5 @@
 [package]
-name = "cosmic_logo_cli"
+name = "desktop_logo_cli"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -7,4 +7,4 @@ license = "MIT"
 [dependencies]
 clap = { version = "4", features = ["derive"] }
 anyhow = { workspace = true }
-cosmic_logo_core = { path = "../core" }
+desktop_logo_core = { path = "../core" }

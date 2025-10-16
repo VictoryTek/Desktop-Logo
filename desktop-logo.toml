@@ -1,4 +1,4 @@
-# Example configuration for the Cosmic Logo Applet
+# Example configuration for the Desktop Logo Applet
 # NOTE: Paths are examples; adjust to your system.
 logo_path = "assets/logo.png"
 position = "BottomRight"  # TopLeft, TopRight, BottomLeft, BottomRight

@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 use clap::Parser;
-use cosmic_logo_core::{CompositeOptions, Position, composite_logo};
+use desktop_logo_core::{CompositeOptions, Position, composite_logo};
 use anyhow::Result;
 
 #[derive(Parser, Debug)]

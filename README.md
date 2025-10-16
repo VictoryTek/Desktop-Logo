@@ -4,7 +4,7 @@ Simple COSMIC desktop applet (prototype) that overlays a logo on top of the curr
 
 ## Status
 - Core image compositing implemented.
-- Applet crate provides configuration loading (`cosmic-logo.toml`).
+- Applet crate provides configuration loading (`desktop-logo.toml`).
 - Flatpak manifest & desktop file placeholders included.
 - Pending: Real libcosmic integration (currently stubbed until stable API details).
 
@@ -14,7 +14,7 @@ Cargo.toml (workspace)
 crates/
   applet/ -> Applet logic + config loader + overlay rendering
 assets/   -> Placeholder images (replace with real ones)
-cosmic-logo.toml -> Applet configuration
+desktop-logo.toml -> Applet configuration
 flatpak/com.example.CosmicLogoApplet.json -> Flatpak manifest (prototype)
 data/com.example.CosmicLogoApplet.desktop -> Desktop file stub
 ```
@@ -84,7 +84,7 @@ flatpak uninstall --user com.example.CosmicLogoApplet
 ```
 
 ## Configuration
-Edit `cosmic-logo.toml`:
+Edit `desktop-logo.toml`:
 ```
 logo_path = "assets/logo.png"
 position = "BottomRight"  # TopLeft | TopRight | BottomLeft | BottomRight
@@ -92,7 +92,7 @@ margin = 64
 max_logo_percent = 0.18
 opacity = 0.85
 ```
-The applet loads this file at startup (future: path may become XDG config).
+The applet loads this file at startup (future: path may become XDG config). If `desktop-logo.toml` is missing, the applet will error out; a future enhancement may add default generation.
 
 ## Positions
 Use: `tl`, `tr`, `bl`, `br` for Top/Bottom + Left/Right.
