@@ -26,6 +26,63 @@ Ensure you have a recent stable Rust toolchain installed.
 cargo build --workspace
 ```
 
+## Installation
+
+### Option 1: Download Pre-built Flatpak (Recommended)
+
+1. **Download from GitHub Actions:**
+   - Go to the [Actions tab](https://github.com/VictoryTek/Desktop-Logo/actions) of this repository
+   - Find the latest successful workflow run
+   - Download the `desktop-logo-applet-flatpak` artifact
+   - Extract the `desktop-logo-applet.flatpak` file
+
+2. **Install the Flatpak:**
+   ```bash
+   # Install the downloaded bundle
+   flatpak install --user desktop-logo-applet.flatpak
+   
+   # Run the applet
+   flatpak run com.example.CosmicLogoApplet
+   ```
+
+### Option 2: Build and Install Locally
+
+1. **Prerequisites:**
+   ```bash
+   # Install required tools
+   sudo apt install flatpak flatpak-builder
+   
+   # Add Flathub remote for base runtime
+   flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+   flatpak install --user flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
+   ```
+
+2. **Clone and build:**
+   ```bash
+   git clone https://github.com/VictoryTek/Desktop-Logo.git
+   cd Desktop-Logo
+   
+   # Use the build script
+   chmod +x scripts/build-flatpak.sh
+   ./scripts/build-flatpak.sh
+   
+   # Install the generated bundle
+   flatpak install --user desktop-logo-applet.flatpak
+   ```
+
+### Managing the Installation
+
+```bash
+# Check if installed
+flatpak list --user | grep CosmicLogoApplet
+
+# Run the applet
+flatpak run com.example.CosmicLogoApplet
+
+# Uninstall if needed
+flatpak uninstall --user com.example.CosmicLogoApplet
+```
+
 ## Configuration
 Edit `cosmic-logo.toml`:
 ```
@@ -61,19 +118,11 @@ cargo test --workspace
 ## License
 MIT
 
-## Flatpak (Prototype)
-To build a Flatpak locally (example outline, adjust for your environment):
-1. Ensure `flatpak-builder` is installed.
-2. Run (Linux host required):
-  ```
-  flatpak-builder build-dir flatpak/com.example.CosmicLogoApplet.json --force-clean
-  ```
-3. Install locally:
-  ```
-  flatpak-builder --user --install build-dir flatpak/com.example.CosmicLogoApplet.json --force-clean
-  ```
+## Flatpak Development
 
-Note: Manifest assumes a generic Freedesktop runtime; switch to a COSMIC runtime when one is published. This applet currently renders an overlay inside an applet window (not modifying the wallpaper file).
+The project includes Flatpak packaging for distribution. The manifest `flatpak/com.example.CosmicLogoApplet.json` uses the Freedesktop runtime (will switch to COSMIC runtime when available).
+
+Note: The applet currently renders an overlay inside an applet window (not modifying the wallpaper file directly).
 
 ## Continuous Integration (GitHub Actions)
 A workflow `.github/workflows/flatpak.yml` builds the Flatpak on each push/PR to `main` or `master`:
@@ -83,19 +132,7 @@ A workflow `.github/workflows/flatpak.yml` builds the Flatpak on each push/PR to
 4. Runs `flatpak-builder` to build & install the applet into a local user repository.
 5. Exports a bundle artifact `desktop-logo-applet.flatpak` you can sideload.
 
-To trigger manually, use the workflow dispatch event in GitHub’s Actions UI.
-
-### Local Flatpak Build
-From a Linux host with Flatpak installed:
-```
-chmod +x scripts/build-flatpak.sh
-./scripts/build-flatpak.sh
-```
-Then install or run:
-```
-flatpak install --user desktop-logo-applet.flatpak
-flatpak run com.example.CosmicLogoApplet
-```
+To trigger manually, use the workflow dispatch event in GitHub's Actions UI.
 
 ## Disclaimer
 Assets are placeholders. Replace with real wallpaper/logo images. Flatpak packaging and libcosmic integration are stubs pending upstream API stability.
