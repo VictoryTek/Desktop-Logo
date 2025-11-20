@@ -10,10 +10,6 @@ use winit::event::{Event, WindowEvent};
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
 
-
-use winit::event::{Event, WindowEvent};
-use winit::event_loop::ControlFlow;
-
 #[cfg(target_os = "linux")]
 pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_logo_percent: f32, opacity: f32) {
     let logo_path = logo_path.to_owned();
@@ -61,7 +57,8 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
         // Use pixels crate for simple drawing
         let mut pixels = {
             let size = window.inner_size();
-            pixels::Pixels::new(size.width, size.height, &window).expect("pixels init")
+            let surface_texture = pixels::SurfaceTexture::new(size.width, size.height, &window);
+            pixels::Pixels::new(size.width, size.height, surface_texture).expect("pixels init")
         };
 
         event_loop.run(move |event, _, control_flow| {
