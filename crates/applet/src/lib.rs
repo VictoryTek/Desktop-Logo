@@ -3,6 +3,7 @@ use anyhow::{Result, Context, bail};
 use cosmic::iced::{Length};
 use cosmic::iced::widget::{image, row, column, horizontal_space, vertical_space};
 use cosmic::widget::{container};
+use cosmic::iced::Color;
 use cosmic::app::{Core, Settings, Task};
 use cosmic::{Application, Element};
 use serde::Deserialize;
@@ -121,9 +122,14 @@ impl Application for LogoApplet {
                 Position::BottomLeft => column!(vertical_space(Length::Fill), img).into(),
                 Position::BottomRight => column!(vertical_space(Length::Fill), row!(horizontal_space(Length::Fill), img)).into(),
             };
-            container(positioned).padding(margin).into()
+            container(positioned)
+                .padding(margin)
+                .style(|_| cosmic::iced::theme::Container::Custom(Box::new(|_theme, _| Some(Color::TRANSPARENT))))
+                .into()
         } else {
-            container(cosmic::widget::text("Loading logo...")).into()
+            container(cosmic::widget::text("Loading logo..."))
+                .style(|_| cosmic::iced::theme::Container::Custom(Box::new(|_theme, _| Some(Color::TRANSPARENT))))
+                .into()
         }
     }
 }

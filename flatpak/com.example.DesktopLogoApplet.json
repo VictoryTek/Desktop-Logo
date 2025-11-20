@@ -17,8 +17,10 @@
   "name": "desktop-logo-applet",
       "buildsystem": "simple",
       "build-commands": [
-  "cargo build --release -p desktop_logo_applet",
-  "install -Dm755 target/release/desktop_logo_applet /app/bin/desktop-logo-applet"
+        "cargo build --release -p desktop_logo_applet",
+        "install -Dm755 target/release/desktop_logo_applet /app/bin/desktop-logo-applet",
+        "install -Dm644 assets/logo.png /app/share/desktop-logo-applet/logo.png",
+        "install -Dm644 desktop-logo.toml /app/share/desktop-logo-applet/desktop-logo.toml"
       ],
       "sources": [
         { "type": "dir", "path": ".." }
