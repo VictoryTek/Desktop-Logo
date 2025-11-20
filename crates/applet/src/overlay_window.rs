@@ -65,7 +65,7 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
             *control_flow = ControlFlow::Wait;
             match event {
                 Event::RedrawRequested(_) => {
-                    let frame = pixels.frame();
+                    let frame = pixels.frame_mut();
                     // Clear to transparent
                     for px in frame.chunks_exact_mut(4) {
                         px.copy_from_slice(&[0, 0, 0, 0]);
