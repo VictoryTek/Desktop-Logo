@@ -12,9 +12,9 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
     let position = position.to_owned();
     thread::spawn(move || {
         use winit::{event::{Event, WindowEvent}, event_loop::{ControlFlow, EventLoop}, window::WindowBuilder};
-        use winit::platform::unix::WindowExtUnix;
-        use std::ptr;
-        use wayland_sys::client::wl_surface;
+        // use winit::platform::unix::WindowExtUnix;
+        // use std::ptr;
+        // use wayland_sys::client::wl_surface;
 
         let event_loop = EventLoop::new();
         let window = WindowBuilder::new()
@@ -25,13 +25,15 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
             .expect("Failed to create overlay window");
 
         // Set click-through (input-transparent) on Wayland
-        if let Some(raw_wl_surface) = window.wayland_surface() {
-            unsafe {
-                let wl_surface_ptr = raw_wl_surface as *mut wl_surface;
-                wayland_sys::client::wl_surface_set_input_region(wl_surface_ptr, ptr::null_mut());
-                wayland_sys::client::wl_surface_commit(wl_surface_ptr);
-            }
-        }
+        // Click-through (input-transparent) logic for Wayland is not available in wayland-sys 0.31 public API.
+        // This section is commented out. For true click-through, use a higher-level crate or compositor-specific protocol.
+        // if let Some(raw_wl_surface) = window.wayland_surface() {
+        //     unsafe {
+        //         let wl_surface_ptr = raw_wl_surface as *mut wl_surface;
+        //         wayland_sys::client::wl_surface_set_input_region(wl_surface_ptr, ptr::null_mut());
+        //         wayland_sys::client::wl_surface_commit(wl_surface_ptr);
+        //     }
+        // }
 
         // Load logo image
         let img = match image::open(&logo_path) {
@@ -58,13 +60,14 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
             *control_flow = ControlFlow::Wait;
             match event {
                 Event::RedrawRequested(_) => {
-                    let frame = pixels.get_frame();
+                    let frame = pixels.frame();
                     // Clear to transparent
                     for px in frame.chunks_exact_mut(4) {
                         px.copy_from_slice(&[0, 0, 0, 0]);
                     }
                     // Draw logo at position
-                    let (win_w, win_h) = (pixels.surface_size().0, pixels.surface_size().1);
+                    let size = window.inner_size();
+                    let (win_w, win_h) = (size.width, size.height);
                     let (x, y) = match position.as_str() {
                         "topleft" => (margin as u32, margin as u32),
                         "topright" => (win_w.saturating_sub(scaled_w + margin), margin as u32),
