@@ -6,6 +6,8 @@ use std::sync::Arc;
 use std::thread;
 use image::GenericImageView;
 
+use winit;
+
 #[cfg(target_os = "linux")]
 pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_logo_percent: f32, opacity: f32) {
     let logo_path = logo_path.to_owned();
