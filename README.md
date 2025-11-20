@@ -103,10 +103,36 @@ Planned enhancements:
 - Multi-monitor awareness
 - Dynamic recoloring
 
-## Testing
-```
-cargo test --workspace
-```
+
+## Testing on Cosmic Desktop
+
+To test the Flatpak on Cosmic desktop:
+
+1. **Build the Flatpak bundle:**
+   ```sh
+   ./scripts/build-flatpak.sh
+   ```
+   This creates `desktop-logo-applet.flatpak` in your project directory.
+
+2. **Transfer the Flatpak bundle to your Cosmic VM:**
+   Use SCP, shared folders, or drag-and-drop to copy `desktop-logo-applet.flatpak` to your Cosmic VM.
+
+3. **Install the Flatpak bundle in the VM:**
+   ```sh
+   flatpak install --user desktop-logo-applet.flatpak
+   ```
+
+4. **Run the applet:**
+   ```sh
+   flatpak run com.example.DesktopLogoApplet
+   ```
+
+5. **Observe and test:**
+   - The overlay window should appear, be click-through, and show your logo.
+   - The main applet should function as expected.
+   - Try interacting with the desktop under the overlay to confirm click-through.
+
+If you encounter any issues, check the terminal for error messages and consult the documentation or support channels.
 
 ## Dependency Notes (libcosmic)
 This project depends on `libcosmic` via a git source because the crates.io published `cosmic` 0.1.0 lacks several features (including `applet`) that are present on the git repository.
