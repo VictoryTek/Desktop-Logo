@@ -1,3 +1,5 @@
+[patch.crates-io]
+cosmic = { git = "https://github.com/pop-os/libcosmic", branch = "master" }
 [workspace]
 members = [
     "crates/applet"
@@ -9,6 +11,7 @@ edition = "2021"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 repository = ""
+
 
 [workspace.dependencies]
 anyhow = "1"
