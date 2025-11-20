@@ -5,6 +5,7 @@ use std::path::Path;
 use std::sync::Arc;
 use std::thread;
 use image::GenericImageView;
+use winit;
 
 use winit;
 
@@ -13,7 +14,7 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
     let logo_path = logo_path.to_owned();
     let position = position.to_owned();
     thread::spawn(move || {
-        use winit::{event::{Event, WindowEvent}, event_loop::{ControlFlow, EventLoop}, window::WindowBuilder};
+        // winit imports are now at the top of the file
         // use winit::platform::unix::WindowExtUnix;
         // use std::ptr;
         // use wayland_sys::client::wl_surface;
