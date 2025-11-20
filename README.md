@@ -1,3 +1,14 @@
+## Important: Dependency Pinning and Cargo.lock
+
+If you encounter build errors about required Rust versions (e.g., icu, indexmap, etc.), you must:
+
+1. Delete your `Cargo.lock` file.
+2. Run `cargo update` locally to regenerate the lockfile with the pinned versions (see `Cargo.toml`).
+3. Commit and push the new `Cargo.lock`.
+
+This ensures all dependencies are locked to versions compatible with Rust 1.81.0, as required by the Flatpak SDK 23.08.
+
+If you skip this step, the build may still fail in CI due to incompatible crate versions being pulled in by the old lockfile.
  
  
 # Desktop Logo Applet# Desktop Logo Applet
