@@ -20,6 +20,28 @@ serde = { version = "1", features = ["derive"] }
 toml = "0.5"
 image = { version = "0.24", default-features = false, features = ["png", "jpeg"] }
 indexmap = "=2.1.0"
+# ICU and related crates pinned for Rust 1.81 compatibility
+icu = "=1.3.2"
+icu_collections = "=1.3.2"
+icu_locid = "=1.3.2"
+icu_locid_macros = "=1.3.2"
+icu_provider = "=1.3.2"
+icu_provider_adapters = "=1.3.2"
+icu_provider_macros = "=1.3.2"
+icu_provider_fs = "=1.3.2"
+icu_properties = "=1.3.2"
+icu_normalizer = "=1.3.2"
+icu_normalizer_data = "=1.3.2"
+icu_locale_core = "=1.3.2"
+idna = "=0.4.0"
+idna_adapter = "=1.1.0"
+litemap = "=0.7.2"
+potential_utf = "=0.1.3"
+tinystr = "=0.7.1"
+writeable = "=0.5.0"
+yoke = "=0.7.1"
+zerovec = "=0.10.0"
+zerotrie = "=0.1.2"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
