@@ -5,7 +5,10 @@ use std::path::Path;
 use std::sync::Arc;
 use std::thread;
 use image::GenericImageView;
-use winit;
+
+use winit::event::{Event, WindowEvent};
+use winit::event_loop::{ControlFlow, EventLoop};
+use winit::window::WindowBuilder;
 
 use winit;
 

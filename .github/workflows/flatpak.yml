@@ -1,3 +1,5 @@
+
+# Force workflow re-index and ensure it triggers on every push
 name: Build Flatpak
 
 on:
