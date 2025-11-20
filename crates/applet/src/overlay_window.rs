@@ -10,7 +10,9 @@ use winit::event::{Event, WindowEvent};
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
 
-use winit;
+
+use winit::event::{Event, WindowEvent};
+use winit::event_loop::ControlFlow;
 
 #[cfg(target_os = "linux")]
 pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_logo_percent: f32, opacity: f32) {
