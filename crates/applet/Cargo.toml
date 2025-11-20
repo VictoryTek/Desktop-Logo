@@ -12,6 +12,7 @@ image = { workspace = true }
 wayland-sys = { version = "0.31", package = "wayland-sys" }
 pixels = "0.13"
 notify = "6"
+winit = "0.27"
 
 [features]
 default = []
