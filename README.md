@@ -63,31 +63,36 @@ cargo run -p desktop_logo_appletcargo run -p desktop_logo_applet
 
 ## Configuration### Run Installed Flatpak
 
-Edit `desktop-logo.toml` (in the project root when using cargo run):```bash
 
-```flatpak run com.example.DesktopLogoApplet
+## Configuration & Logo
 
-logo_path = "assets/logo.png"```
+The applet loads its configuration from `desktop-logo.toml`.
 
+- **Flatpak:**
+   - By default, the config is loaded from `/app/share/desktop-logo-applet/desktop-logo.toml` (bundled in the Flatpak).
+   - To override, place a `desktop-logo.toml` in your XDG config directory (e.g. `~/.config/desktop-logo.toml`).
+   - The app will also check the current directory as a last resort.
+
+- **Logo selection order:**
+   1. If `~/.config/desktop-logo-applet/logo.png` exists, it is used as the logo.
+   2. Otherwise, the bundled `/app/share/desktop-logo-applet/logo.png` is used (Flatpak default).
+   3. Otherwise, the path in `logo_path` from the config is used.
+
+**To use your own logo:**
+   - Place a PNG file at `~/.config/desktop-logo-applet/logo.png` (recommended for Flatpak and local runs).
+   - Or, edit `logo_path` in your config to point to a custom image.
+
+Example `desktop-logo.toml`:
+
+```toml
+logo_path = "assets/logo.png"
 position = "BottomRight"  # TopLeft | TopRight | BottomLeft | BottomRight
-
-margin = 64## Configuration
-
-max_logo_percent = 0.18Edit `desktop-logo.toml` (in the project root when using cargo run):
-
-opacity = 0.85```
-
-```logo_path = "assets/logo.png"
-
-If the file is missing the applet exits with an error. Provide your own image path for `logo_path` (absolute paths work).position = "BottomRight"  # TopLeft | TopRight | BottomLeft | BottomRight
-
 margin = 64
-
-## Licensemax_logo_percent = 0.18
-
-MITopacity = 0.85
+max_logo_percent = 0.18
+opacity = 0.85
 ```
-If the file is missing the applet exits with an error. Provide your own image path for `logo_path` (absolute paths work).
+
+If the config file is missing, the applet exits with an error. If the logo is missing, the applet will try the next fallback location.
 
 ## Positions
 Use: `tl`, `tr`, `bl`, `br` for Top/Bottom + Left/Right.

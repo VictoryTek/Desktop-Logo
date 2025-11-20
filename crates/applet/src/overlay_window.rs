@@ -6,7 +6,9 @@ use std::sync::Arc;
 use std::thread;
 use image::GenericImageView;
 
-use winit::event::{Event, WindowEvent};
+use winit::event::{Event, WindowEvent, KeyboardInput, ElementState, VirtualKeyCode};
+use rfd::FileDialog;
+use std::fs;
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
 
@@ -39,20 +41,25 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
         //     }
         // }
 
-        // Load logo image
-        let img = match image::open(&logo_path) {
-            Ok(img) => img,
-            Err(_) => return,
+        // Helper to load and process the logo image
+        let mut load_logo = |logo_path: &Path| -> Option<(Arc<Vec<u8>>, u32, u32)> {
+            let img = image::open(logo_path).ok()?;
+            let (w, h) = img.dimensions();
+            let reference = w.min(h) as f32;
+            let target = (reference * max_logo_percent).max(1.0);
+            let scale = target / reference;
+            let scaled_w = (w as f32 * scale).round().max(1.0) as u32;
+            let scaled_h = (h as f32 * scale).round().max(1.0) as u32;
+            let img = img.resize_exact(scaled_w, scaled_h, image::imageops::FilterType::Lanczos3);
+            let rgba = img.to_rgba8();
+            Some((Arc::new(rgba.into_raw()), scaled_w, scaled_h))
         };
-        let (w, h) = img.dimensions();
-        let reference = w.min(h) as f32;
-        let target = (reference * max_logo_percent).max(1.0);
-        let scale = target / reference;
-        let scaled_w = (w as f32 * scale).round().max(1.0) as u32;
-        let scaled_h = (h as f32 * scale).round().max(1.0) as u32;
-        let img = img.resize_exact(scaled_w, scaled_h, image::imageops::FilterType::Lanczos3);
-        let rgba = img.to_rgba8();
-        let raw = Arc::new(rgba.into_raw());
+
+        let mut current_logo_path = logo_path.clone();
+        let (mut raw, mut scaled_w, mut scaled_h) = match load_logo(&current_logo_path) {
+            Some(t) => t,
+            None => return,
+        };
 
         // Use pixels crate for simple drawing
         let mut pixels = {
@@ -100,6 +107,26 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
                 }
                 Event::WindowEvent { event: WindowEvent::Resized(_), .. } => {
                     window.request_redraw();
+                }
+                Event::WindowEvent { event: WindowEvent::KeyboardInput { input, .. }, .. } => {
+                    if let KeyboardInput { state: ElementState::Pressed, virtual_keycode: Some(VirtualKeyCode::U), .. } = input {
+                        // Open file dialog for PNG
+                        if let Some(path) = FileDialog::new().add_filter("PNG Image", &["png"]).pick_file() {
+                            if let Some(cfg_dir) = dirs::config_dir() {
+                                let app_dir = cfg_dir.join("desktop-logo-applet");
+                                let user_logo = app_dir.join("logo.png");
+                                if let Ok(_) = fs::copy(&path, &user_logo) {
+                                    if let Some((new_raw, new_w, new_h)) = load_logo(&user_logo) {
+                                        raw = new_raw;
+                                        scaled_w = new_w;
+                                        scaled_h = new_h;
+                                        current_logo_path = user_logo;
+                                        window.request_redraw();
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 _ => {}
             }
