@@ -56,7 +56,7 @@ pub fn spawn_overlay_window(logo_path: &Path, position: &str, margin: u32, max_l
         // Use pixels crate for simple drawing
         let mut pixels = {
             let size = window.inner_size();
-            pixels::Pixels::new(size.width, size.height, window.clone()).expect("pixels init")
+            pixels::Pixels::new(size.width, size.height, &window).expect("pixels init")
         };
 
         event_loop.run(move |event, _, control_flow| {
