@@ -1,5 +1,28 @@
 [patch.crates-io]
 cosmic = { git = "https://github.com/pop-os/libcosmic", branch = "master" }
+# Path overrides for Rust 1.81-compatible crates (vendor/)
+icu = { path = "vendor/icu-1.3.2" }
+icu_collections = { path = "vendor/icu_collections-1.3.2" }
+icu_locid = { path = "vendor/icu_locid-1.3.2" }
+icu_locid_macros = { path = "vendor/icu_locid_macros-1.3.2" }
+icu_provider = { path = "vendor/icu_provider-1.3.2" }
+icu_provider_adapters = { path = "vendor/icu_provider_adapters-1.3.2" }
+icu_provider_macros = { path = "vendor/icu_provider_macros-1.3.2" }
+icu_provider_fs = { path = "vendor/icu_provider_fs-1.3.2" }
+icu_properties = { path = "vendor/icu_properties-1.3.2" }
+icu_normalizer = { path = "vendor/icu_normalizer-1.3.2" }
+icu_normalizer_data = { path = "vendor/icu_normalizer_data-1.3.2" }
+icu_locale_core = { path = "vendor/icu_locale_core-1.3.2" }
+idna = { path = "vendor/idna-0.4.0" }
+idna_adapter = { path = "vendor/idna_adapter-1.1.0" }
+litemap = { path = "vendor/litemap-0.7.2" }
+potential_utf = { path = "vendor/potential_utf-0.1.3" }
+tinystr = { path = "vendor/tinystr-0.7.1" }
+writeable = { path = "vendor/writeable-0.5.0" }
+yoke = { path = "vendor/yoke-0.7.1" }
+zerovec = { path = "vendor/zerovec-0.10.0" }
+zerotrie = { path = "vendor/zerotrie-0.1.2" }
+indexmap = { path = "vendor/indexmap-2.1.0" }
 [workspace]
 members = [
     "crates/applet"
